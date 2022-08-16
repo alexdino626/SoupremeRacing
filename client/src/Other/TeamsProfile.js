@@ -3,3 +3,5 @@ const TeamsProfile = () => {
         <h1>Team</h1>
     </div>
 }
+
+export default TeamsProfile

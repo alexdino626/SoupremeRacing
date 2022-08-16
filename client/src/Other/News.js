@@ -3,3 +3,5 @@ const News = () => {
         <h1>News</h1>
     </div>
 }
+
+export default News

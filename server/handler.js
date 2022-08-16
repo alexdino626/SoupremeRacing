@@ -80,9 +80,68 @@ const handleTeamsRanks = async (req, res) => {
     };
 };
 
+const handleAddUser = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    const {userName, email, password} = req.body
+        await client.connect();
+        const db= client.db();
+        console.log("connect!");
+
+        const user = await db.collection("Users").insertOne(req.body);
+        if(
+            req.body.userName.length <= 5 || req.body.password.length <= 5  ||
+            req.body.email.includes("@") === false
+            ) {
+            res.status(500).json({ status: 500, data: user, message: "Sorry your registration could not be completed"})
+        } else {
+            res.status(201).json({ status: 201, data: user, message: "Your registration has been completed!!"})
+        }
+}
+
+    //Get user by id
+const handleGetUser = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    const {userId} = req.params;
+
+    await client.connect()
+
+    const db = client.db("Formula-1");
+
+    const user = await db.collection("Users").findOne({_id: userId});
+
+    if(!user) {
+        res.status(404).json({ status: 404, message: "User not found" });
+    } else {
+        res.status(200).json({ status: 200, data: user });
+    };
+
+    client.close();
+};
+
+const handleGetComments = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+
+    await client.connect()
+
+    const db = client.db("Formula-1");
+
+    const comment = await db.collection("Comments").find().toArray();
+
+    if(comment.length === 0) {
+        res.status(404).json({ status: 404, message: "No comments" });
+    } else {
+        res.status(200).json({ status: 200, data: comment });
+    };
+
+    client.close();
+};
+
 module.exports = {
     handleTeamStats,
     handleDriverStats,
     handleDriverRanks,
     handleTeamsRanks,
-};
+    handleAddUser,
+    handleGetUser,
+    handleGetComments,
+}
