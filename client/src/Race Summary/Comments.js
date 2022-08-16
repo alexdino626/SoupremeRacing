@@ -43,7 +43,6 @@ const Comments = () => {
                 {/* <LinkItem to={`/user/${x._id}`}> */}
                 <Content>
                     {comments.body}
-                    {/* <Img src={x.imageSrc} /> */}
                 </Content>
                 {/* </LinkItem> */}
             </>

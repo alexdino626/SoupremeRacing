@@ -74,7 +74,7 @@ express()
 .get("/user/:userId", handleGetUser)
 
 //get comments
-.get("/comments", handleGetComments)
+.get("/comments/:comId", handleGetComments)
 
 //post new user to the database so no repeated users can exist
 .post("/register", handleAddUser)

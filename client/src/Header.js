@@ -3,7 +3,9 @@ import { NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import LogButton from "./Log In and out/LogButton";
 import LogOutButton from "./Log In and out/LogOutButton";
-import { ReactComponent as Logo} from "./assets/Soupreme-racing-.svg"
+// import { ReactComponent as Logo} from "./assets/Soupreme-racing-.svg"
+import Logo from "./assets/Soupreme-racing-.svg"
+
 const AuthNav = () => {
     const {isAuthenticated} = useAuth0();
 
@@ -18,9 +20,7 @@ const Header = () => {
     return (
         <Bar>
             <StyledLink to={"/"}>
-                <Title>
-                <Logo />
-                </Title>
+                    <Image src={Logo} alt="Soup on wheels Logo" />
             </StyledLink>
             <StyledLink to={"/raceSummary"}>
                 <Span>
@@ -61,13 +61,6 @@ const Bar = styled.div`
     border-bottom: outset 2px #ef233c;
 `;
 
-const Title = styled.div`
-    padding-left: 10px;
-    font-weight: bold;
-    font-size: 30px;
-    color: white;
-`;
-
 const StyledLink = styled(NavLink)`
     text-decoration: none;
     color: #edf2f4;
@@ -83,5 +76,10 @@ const StyledLink = styled(NavLink)`
 const Span = styled.span`
     font-weight: bold;
 `;
+
+const Image = styled.img`
+    height:60px;
+    width:70px;
+`
 
 export default Header

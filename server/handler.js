@@ -120,12 +120,14 @@ const handleGetUser = async (req, res) => {
 
 const handleGetComments = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
+    const {comId} = req.params;
+
 
     await client.connect()
 
     const db = client.db("Formula-1");
 
-    const comment = await db.collection("Comments").find().toArray();
+    const comment = await db.collection("Comments").findOne({comId: comId});
 
     if(comment.length === 0) {
         res.status(404).json({ status: 404, message: "No comments" });

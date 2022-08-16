@@ -1,22 +1,23 @@
-// import { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommentForm from "./CommentForm";
 import Comments from "./Comments";
 
 
-const RaceSummary = () => {
-    // const [user, setUser] = useState(null);
-    
-    // const value = useParams();
 
-    // useEffect(() => {
-    //     fetch(`/user/${value.user}`)
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //         setUser(data)
-    //     })
-    // });
+const RaceSummary = () => {
+    const [user, setUser] = useState(null);
+    
+    const value = useParams();
+
+    useEffect(() => {
+        fetch(`/user/${value.user}`)
+        .then((res) => res.json())
+        .then((data) => {
+            setUser(data)
+        })
+    });
 
     <Wrapper>
         <h1>This is what happened in the latest Grand Prix race day</h1>
@@ -58,8 +59,8 @@ const RaceSummary = () => {
         bring out a Virtual Safety Car and a last-place classification for the Alfa Romeo.
         </p>
         
-        <CommentForm 
-        // currentUserId = {user}
+        <CommentForm
+        currentUserId = {user}
         />
         <Comments />
     </Wrapper>
