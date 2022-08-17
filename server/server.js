@@ -8,8 +8,8 @@ const {
     handleTeamsRanks,
     handleAddUser,
     handleGetUser,
-    handleGetComments,
-    handlePostComment,
+    // handleGetComments,
+    // handlePostComment,
     handleDeleteUser,
     handleEditUser
 } = require("./handler");
@@ -54,12 +54,12 @@ express()
 .get("/user/:userId", handleGetUser)
 
 //get comments
-.get("/comments/:comId", handleGetComments)
+// .get("/comments/:comId", handleGetComments)
 
 //post new user to the database so no repeated users can exist
 .post("/register", handleAddUser)
 
-.post("/comments", handlePostComment)
+// .post("/comments", handlePostComment)
 
 .delete("/user", handleDeleteUser)
 
