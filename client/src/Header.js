@@ -22,7 +22,7 @@ const Header = () => {
             <StyledLink to={"/"}>
                     <Image src={Logo} alt="Soup on wheels Logo" />
             </StyledLink>
-            <StyledLink to={"/raceSummary"}>
+            <StyledLink to={"/racesummary"}>
                 <Span>
                 Race Summary
                 </Span>
@@ -56,9 +56,9 @@ const Bar = styled.div`
     font-family: "Spectral";
     font-size: 20px;
     display: flex;
-    padding: 25px 35px;
+    padding: 15px 15px;
     background-color: #d90429;
-    border-bottom: outset 2px #ef233c;
+    /* border-bottom: outset 2px #ef233c; */
 `;
 
 const StyledLink = styled(NavLink)`

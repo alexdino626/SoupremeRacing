@@ -74,7 +74,6 @@ const Register = () => {
                 handleClick={handleClick}
                 disabled={disabled}
                 subStatus={subStatus}
-                
                 />
             </FormGroup>
         </Wrapper>
@@ -82,6 +81,10 @@ const Register = () => {
 }
 
 const Wrapper = styled.form`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     padding: 0 20px;
 `;
 

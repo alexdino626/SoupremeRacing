@@ -9,7 +9,7 @@ export default createGlobalStyle`
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
+del, dfn, em, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
 dl, dt, dd, ol, ul, li,
@@ -22,9 +22,9 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
-	font: inherit;
-	font-family: "Spectral";
+	/* font-size: 100%; */
+	/* font: inherit; */
+	font-family: 'Titillium Web', sans-serif;
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */

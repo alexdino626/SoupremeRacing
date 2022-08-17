@@ -13,8 +13,7 @@ const RegisterButton = ({ handleClick, disabled, subStatus }) => (
     );
         
 const Wrapper = styled.button`
-    background: #8d99ae;
-    border-color: #ef233c;
+    background: #2b2d42;
     border-radius: 4px;
     color: white;
     cursor: pointer;

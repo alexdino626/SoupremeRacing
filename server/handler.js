@@ -103,11 +103,12 @@ const handleGetUser = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     const {userId} = req.params;
 
+
     await client.connect()
 
     const db = client.db("Formula-1");
 
-    const user = await db.collection("Users").findOne({_id: userId});
+    const user = await db.collection("Users").findOne({userId: userId});
 
     if(!user) {
         res.status(404).json({ status: 404, message: "User not found" });
@@ -138,6 +139,76 @@ const handleGetComments = async (req, res) => {
     client.close();
 };
 
+const handlePostComment = async (req, res) => {
+    const client = new MongoClient(MONGO_URI, options);
+    const {text} = req.body
+    
+    await client.connect();
+
+    const db= client.db("Formula-1");
+
+    const comment = await db.collection("Comments").insertOne(req.body);
+    
+    if(!comment) {
+        res.status(500).json({ status: 500, data: comment, message: "No comments"})
+    } else {
+        res.status(201).json({ status: 201, data: comment})
+    }
+
+    client.close();
+};
+
+const handleDeleteComment = async (req, res) => {
+    const _id = req.body._id;
+
+    const client = new MongoClient(MONGO_URI, options);
+
+    await client.connect();
+
+    const db = client.db("our-project");
+
+    const result = await db.collection("Commetns").deleteOne({ _id });
+
+    result.deletedCount === 1
+        ? res.status(200).json({
+            status: 200,
+            message: `comment ${req.body._id} removed from cart`,
+        })
+        : res.status(400).json({
+            status: 400,
+            message: "oops, something went wrong",
+        });
+
+    client.close();
+};
+
+const handleEditComment = async (req, res) => {
+    const query = req.body._id;
+    const newText = req.body.text;
+
+    const client = new MongoClient(MONGO_URI, options);
+
+    await client.connect();
+
+    const db = client.db("Formula-1");
+
+    const result = await db
+        .collection("Comments")
+        .updateOne({ _id: query }, { $set: { text: newText } });
+
+    result.modifiedCount === 1
+        ? res.status(200).json({
+            status: 200,
+            message: `now we have ${req.body.quantity} item ${req.body._id} in cart`,
+        })
+        : res.status(400).json({
+            status: 400,
+            message: "oops, something went wrong",
+        });
+
+    client.close();
+};
+
 module.exports = {
     handleTeamStats,
     handleDriverStats,
@@ -146,4 +217,7 @@ module.exports = {
     handleAddUser,
     handleGetUser,
     handleGetComments,
+    handlePostComment,
+    handleDeleteComment,
+    handleEditComment
 }
