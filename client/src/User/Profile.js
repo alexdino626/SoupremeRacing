@@ -65,7 +65,6 @@ const Profile = () => {
                         User Name:
                         <UsernameInput value={currentUser.userName} onChange={input => setCurrentUser({ ...currentUser, userName: input.target.value })} />
                     </label>
-                    <br/>
                     <label>
                         Email:
                         <EmailInput value={currentUser.email} onChange={input => setCurrentUser({...currentUser, email: input.target.value})} />
