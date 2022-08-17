@@ -84,9 +84,10 @@ const handleAddUser = async (req, res) => {
     const client = new MongoClient(MONGO_URI, options);
     const {userName, email, password} = req.body
         await client.connect();
-        const db= client.db();
+        
+        const db= client.db("Formula-1");
         console.log("connect!");
-
+        
         const user = await db.collection("Users").insertOne(req.body);
         if(
             req.body.userName.length <= 5 || req.body.password.length <= 5  ||
@@ -119,44 +120,44 @@ const handleGetUser = async (req, res) => {
     client.close();
 };
 
-const handleGetComments = async (req, res) => {
-    const client = new MongoClient(MONGO_URI, options);
-    const {comId} = req.params;
+// const handleGetComments = async (req, res) => {
+//     const client = new MongoClient(MONGO_URI, options);
+//     const {comId} = req.params;
 
 
-    await client.connect()
+//     await client.connect()
 
-    const db = client.db("Formula-1");
+//     const db = client.db("Formula-1");
 
-    const comment = await db.collection("Comments").findOne({comId: comId});
+//     const comment = await db.collection("Comments").findOne({comId: comId});
 
-    if(comment.length === 0) {
-        res.status(404).json({ status: 404, message: "No comments" });
-    } else {
-        res.status(200).json({ status: 200, data: comment });
-    };
+//     if(comment.length === 0) {
+//         res.status(404).json({ status: 404, message: "No comments" });
+//     } else {
+//         res.status(200).json({ status: 200, data: comment });
+//     };
 
-    client.close();
-};
+//     client.close();
+// };
 
-const handlePostComment = async (req, res) => {
-    const client = new MongoClient(MONGO_URI, options);
-    const {text} = req.body
+// const handlePostComment = async (req, res) => {
+//     const client = new MongoClient(MONGO_URI, options);
+//     const {text} = req.body
     
-    await client.connect();
+//     await client.connect();
 
-    const db= client.db("Formula-1");
+//     const db= client.db("Formula-1");
 
-    const comment = await db.collection("Comments").insertOne(req.body);
+//     const comment = await db.collection("Comments").insertOne(req.body);
     
-    if(!comment) {
-        res.status(500).json({ status: 500, data: comment, message: "No comments"})
-    } else {
-        res.status(201).json({ status: 201, data: comment})
-    }
+//     if(!comment) {
+//         res.status(500).json({ status: 500, data: comment, message: "No comments"})
+//     } else {
+//         res.status(201).json({ status: 201, data: comment})
+//     }
 
-    client.close();
-};
+//     client.close();
+// };
 
 const handleDeleteUser = async (req, res) => {
     const { userId } = req.body;
@@ -216,8 +217,8 @@ module.exports = {
     handleTeamsRanks,
     handleAddUser,
     handleGetUser,
-    handleGetComments,
-    handlePostComment,
+    // handleGetComments,
+    // handlePostComment,
     handleDeleteUser,
     handleEditUser
 }
