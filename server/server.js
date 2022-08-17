@@ -10,8 +10,8 @@ const {
     handleGetUser,
     handleGetComments,
     handlePostComment,
-    handleDeleteComment,
-    handleEditComment
+    handleDeleteUser,
+    handleEditUser
 } = require("./handler");
 
 const PORT = 8000
@@ -61,9 +61,9 @@ express()
 
 .post("/comments", handlePostComment)
 
-.delete("/comments", handleDeleteComment)
+.delete("/user", handleDeleteUser)
 
-.patch("/comments", handleEditComment)
+.patch("/user", handleEditUser)
 
     .get('/', (req, res) => {
         res.status(200).json({status: 200, message: "Hello!"})

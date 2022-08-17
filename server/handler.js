@@ -158,21 +158,23 @@ const handlePostComment = async (req, res) => {
     client.close();
 };
 
-const handleDeleteComment = async (req, res) => {
-    const _id = req.body._id;
+const handleDeleteUser = async (req, res) => {
+    const { userId } = req.body;
 
     const client = new MongoClient(MONGO_URI, options);
 
     await client.connect();
 
-    const db = client.db("our-project");
+    const db = client.db("Formula-1");
 
-    const result = await db.collection("Commetns").deleteOne({ _id });
+    const result = await db.collection("Users").deleteOne({ userId });
+
+    console.log(result)
 
     result.deletedCount === 1
         ? res.status(200).json({
             status: 200,
-            message: `comment ${req.body._id} removed from cart`,
+            message: `User ${req.body.userId} removed`,
         })
         : res.status(400).json({
             status: 400,
@@ -182,9 +184,8 @@ const handleDeleteComment = async (req, res) => {
     client.close();
 };
 
-const handleEditComment = async (req, res) => {
-    const query = req.body._id;
-    const newText = req.body.text;
+const handleEditUser = async (req, res) => {
+    const { userId, userName: newUsername  } = req.body;
 
     const client = new MongoClient(MONGO_URI, options);
 
@@ -193,13 +194,12 @@ const handleEditComment = async (req, res) => {
     const db = client.db("Formula-1");
 
     const result = await db
-        .collection("Comments")
-        .updateOne({ _id: query }, { $set: { text: newText } });
+        .collection("Users")
+        .updateOne({ userId }, { $set: { userName: newUsername} });
 
     result.modifiedCount === 1
         ? res.status(200).json({
             status: 200,
-            message: `now we have ${req.body.quantity} item ${req.body._id} in cart`,
         })
         : res.status(400).json({
             status: 400,
@@ -218,6 +218,6 @@ module.exports = {
     handleGetUser,
     handleGetComments,
     handlePostComment,
-    handleDeleteComment,
-    handleEditComment
+    handleDeleteUser,
+    handleEditUser
 }

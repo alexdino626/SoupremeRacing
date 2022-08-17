@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 
 import styled from "styled-components";
 
+const defaultUser = {userName:"", email:""};
 
 const Profile = () => {
-    const [currentUser, setCurrentUser] = useState(null);
-    const userId = useParams();
+    const [currentUser, setCurrentUser] = useState(defaultUser);
+    const { userId } = useParams();
 
     useEffect(() => {
         fetch(`/user/${userId}`,{
@@ -17,27 +18,62 @@ const Profile = () => {
         })
         .then((res) => res.json())
         .then((json) => {
-            setCurrentUser(json.data);
+            if (json.status === 200) {
+                setCurrentUser(json.data);
+            }
         })
         .catch((err)=> console.log(err))
     }, []);
 
+    const updateUser = () => {
+        console.log(currentUser);
+        fetch(`/user`,{
+            method: 'PATCH',
+            headers : { 
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(currentUser),
+        })
+        .then((res) => res.json())
+        .catch((err)=> console.log(err))
+    }
+
+    const deleteUser = () => {
+        fetch(`/user`,{
+            method: 'DELETE',
+            headers : { 
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                userId,
+            }),
+        })
+        .then((res) => res.json())
+        .then(() => {setCurrentUser(defaultUser)})
+        .catch((err)=> console.log(err))
+    }
+
     return(
         <Wrapper>
-        <h1>Constructors Cup Rankings</h1>
+        <h1>User Info</h1>
         <Users>
-            {currentUser.map((x) => {
-                return(
-                    <>
-                    <Content>
-                        <User>
-                            <UsernameInput>Username: {x.userName}</UsernameInput>
-                            <EmailInput>Email:{x.email}</EmailInput>
-                        </User>
-                    </Content>
-                    </>
-                )
-            })}
+            <Content>
+                <User>
+                    <label>
+                        User Name:
+                        <UsernameInput value={currentUser.userName} onChange={input => setCurrentUser({ ...currentUser, userName: input.target.value })} />
+                    </label>
+                    <br/>
+                    <label>
+                        Email:
+                        <EmailInput value={currentUser.email} onChange={input => setCurrentUser({...currentUser, email: input.target.value})} />
+                    </label>
+                </User>
+            </Content>
+            <button onClick={updateUser}>update</button>
+            <button onClick={deleteUser}>delete</button>
         </Users>
     </Wrapper>
     )
