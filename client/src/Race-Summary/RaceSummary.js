@@ -4,7 +4,7 @@ import styled from "styled-components";
 // import CommentSection from "./CommentSection";
 // import CommentForm from "./CommentForm";
 // import Comments from "./Comments";
-import Comment from "../test/Comment";
+// import Comment from "../test/Comment";
 
 
 const RaceSummary = () => {

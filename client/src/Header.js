@@ -37,11 +37,11 @@ const Header = () => {
                 Constructor Standings
                 </Span>
             </StyledLink>
-            {/* <StyledLink to={"/logIn"}>
+            <StyledLink to={"/user/:userId"}>
                 <Span>
-                Log In
+                Profile
                 </Span>
-            </StyledLink> */}
+            </StyledLink>
             <StyledLink to={"/register"}>
                 <Span>
                 Register
